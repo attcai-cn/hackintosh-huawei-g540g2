@@ -201,7 +201,7 @@ keepsyms=1 -vi2c-force-polling -v -allow3d -disablegfxfirmware -igfxdvmt itlwm_h
    需要按 DSDT 里的实际布局拆字段（`B1B2` / `RBEC` 辅助方法），
    并把 `_BST` / `_BIF`（或 `_BIX`）挂到新建的 `BAT0` 设备上。
 2. **`SMCBatteryManager.kext`** —— 本 EFI 的 `VirtualSMC.kext` 是精简运行时包
-   （`Contents/PlugIns` 为空），没有带电池插件。
+   （没有 `Contents/PlugIns` 目录），没有带电池插件。
    这一环缺着，**ACPI 修得再对也不会有电池图标**，因为系统侧根本没有
    产生 `AppleSmartBattery` 的驱动。
 

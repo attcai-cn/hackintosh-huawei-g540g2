@@ -42,7 +42,7 @@
 
 | 项 | 状态 | 说明 |
 | --- | --- | --- |
-| `SMCBatteryManager.kext` | ❌ 未加入 | VirtualSMC 的电池插件。本 EFI 里的 `VirtualSMC.kext` 是精简运行时包，`Contents/PlugIns` 为空，所以电池驱动链根本没接上 |
+| `SMCBatteryManager.kext` | ❌ 未加入 | VirtualSMC 的电池插件。本 EFI 里的 `VirtualSMC.kext` 是精简运行时包，没有 `Contents/PlugIns` 目录，所以电池驱动链根本没接上 |
 | 电池 ACPI（`SSDT-BATT` 等） | ❌ 未加入 | EC 里的 16-bit 电池字段需要拆分 + `_BST`/`_BIF` 重建，详见主 README §7.1 |
 
 `ECEnabler.kext`（#10）已在用，但它只解决「>8bit 字段读不出来」，
