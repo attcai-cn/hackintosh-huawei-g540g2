@@ -6,7 +6,7 @@
 序列号、ACPI、USB 映射都是针对这台机器的。
 
 配套的补丁源码是对上游 WhateverXe 0.6.1 的 fork，改动在 `edp-panel-handoff` 分支：
-[`<your-name>/WhateverXe`](https://github.com/<your-name>/WhateverXe/tree/edp-panel-handoff)
+[`attcai-cn/WhateverXe`](https://github.com/attcai-cn/WhateverXe/tree/edp-panel-handoff)
 （上游：[b00t0x/WhateverXe](https://github.com/b00t0x/WhateverXe)）。
 
 > ⚠️ **本仓库的 `EFI/OC/config.plist` 已抹除三码**（`SystemSerialNumber` / `MLB` /

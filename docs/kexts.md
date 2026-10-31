@@ -1,7 +1,7 @@
 # 第三方 kext 清单
 
 全部取自各项目官方 release，未做二进制修改（`WhateverXe.kext` 除外——那份是补丁版，
-见 [fork 的 `edp-panel-handoff` 分支](https://github.com/<your-name>/WhateverXe/tree/edp-panel-handoff)）。
+见 [fork 的 `edp-panel-handoff` 分支](https://github.com/attcai-cn/WhateverXe/tree/edp-panel-handoff)）。
 
 | # | kext | 版本 | Bundle ID | 用途 | 上游 |
 | --- | --- | --- | --- | --- | --- |
