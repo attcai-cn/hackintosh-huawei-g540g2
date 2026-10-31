@@ -5,8 +5,9 @@
 这份 EFI 是「WhateverXe 补丁版点亮内屏」这一结果的**可复用快照**，不是通用配置——
 序列号、ACPI、USB 映射都是针对这台机器的。
 
-配套的补丁源码在另一个仓库：
-[`WhateverXe-edp-panel-fix`](https://github.com/<your-name>/WhateverXe-edp-panel-fix)。
+配套的补丁源码是对上游 WhateverXe 0.6.1 的 fork，改动在 `edp-panel-handoff` 分支：
+[`<your-name>/WhateverXe`](https://github.com/<your-name>/WhateverXe/tree/edp-panel-handoff)
+（上游：[b00t0x/WhateverXe](https://github.com/b00t0x/WhateverXe)）。
 
 > ⚠️ **本仓库的 `EFI/OC/config.plist` 已抹除三码**（`SystemSerialNumber` / `MLB` /
 > `SystemUUID` / `ROM` 全是占位值），直接拿来开机是**装不了机也登不了 iCloud** 的。
@@ -23,7 +24,7 @@
 | 内存 | 16 GB |
 | 核显 | Intel Iris Xe Graphics，`8086:A7A0`，rev `0x04` |
 | 内屏 | **1920×1080 @ 60Hz eDP**，`Connection Type: Internal` |
-| macOS | **26.7.1**（25G241），Darwin 25.6.0 |
+| macOS | **26.7**（Tahoe） |
 | SMBIOS | `MacBookPro16,2` |
 | 无线 / 蓝牙 / 网卡 | Intel Wi-Fi（AirportItlwm 2.4.0）、Intel 蓝牙（IntelBluetoothFirmware 2.5.1）、YT6801 有线网卡 |
 
@@ -215,3 +216,4 @@ bundle 与版权信息。SSDT 与 `config.plist` 的整理部分可视为 **CC0 
   - `UEFI → Output → Resolution`：`1024x768` → `1920x1080`（内屏原生分辨率）。
   - 文档内分辨率统一为 1920×1080，补充换三码步骤与第三方组件清单。
   - 修正 `Kernel → Add` 中 VoodooI2C / VoodooPS2Controller 的 PlugIn 数量描述。
+  - 系统版本按实机订正为 macOS **26.7**（原稿写的构建号与内核版本互相对不上，已去掉）。
