@@ -1,4 +1,4 @@
-# HUAWEI YTG / i7-1360P / Iris Xe (8086:A7A0) — macOS Tahoe 26 + eDP 内屏加速
+# HUAWEI YTG-XXX 擎云G540 Gen2 / i7-1360P / Iris Xe (8086:A7A0) — macOS Tahoe 26 + eDP 内屏加速
 
 **状态：可正常启动，内屏 eDP 硬件加速已点亮（Metal 2），支持VDA硬解，无线有线网络均正常。触摸板、音频与电池仍不可用，见 [§7](#7-已知问题)。**
 
