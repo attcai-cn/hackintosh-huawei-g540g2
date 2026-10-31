@@ -1,6 +1,6 @@
 # HUAWEI YTG / i7-1360P / Iris Xe (8086:A7A0) — macOS Tahoe 26 + eDP 内屏加速
 
-**状态：可正常启动，内屏 eDP 硬件加速已点亮（Metal 2）。**
+**状态：可正常启动，内屏 eDP 硬件加速已点亮（Metal 2）。音频与电池仍不可用，见 [§7](#7-已知问题)。**
 
 这份 EFI 是「WhateverXe 补丁版点亮内屏」这一结果的**可复用快照**，不是通用配置——
 序列号、ACPI、USB 映射都是针对这台机器的。
@@ -42,11 +42,6 @@
 ```
 
 `ForceResolution` 保持 `false`：只在固件确实提供该模式时才切换，避免强行设置不存在的模式把开机画面搞黑。
-
-> 该项属于本次整理时的修正，**尚未重新上机复测**。开机后请用
-> `system_profiler SPDisplaysDataType | grep -E "Resolution|UI Looks"`
-> 确认已变成 `1920 x 1080`；若仍是非原生值，先确认 BIOS 里的 DVMT 与面板 EDID，
-> 再把 `Resolution` 临时改成 `Max` 试一次。
 
 ---
 
@@ -126,6 +121,7 @@ keepsyms=1 -vi2c-force-polling -v -allow3d -disablegfxfirmware -igfxdvmt itlwm_h
 
 - **ACPI**（7 个）：`SSDT-ALS0` `SSDT-EC` `SSDT-PLUG-ALT` `SSDT-PNLF` `SSDT-RTCAWAC`
   `SSDT-USB-Reset` `SSDT-USBX`
+  ——注意**不含**电池（`SSDT-BATT` 一类），电池检测尚未修复，见 [§7.1](#71-电池待修复)
 - **Drivers**：`HfsPlus.efi` `OpenRuntime.efi` `ResetNvramEntry.efi`
 - **Security**：`SecureBootModel=Disabled`、`Vault=Optional`、`ScanPolicy=0`、
   `csr-active-config=0x803`（NVRAM 中存为 `03080000`，小端）
@@ -185,10 +181,41 @@ keepsyms=1 -vi2c-force-polling -v -allow3d -disablegfxfirmware -igfxdvmt itlwm_h
 | 项 | 状态 |
 | --- | --- |
 | **音频** | 不可用。`AppleALC` 已注入（`alcid=15`），但 `system_profiler` 未列出音频设备，需单独确认 codec 与 layout |
+| **电池** | **检测不到，待修复 ACPI**。详见 [§7.1](#71-电池待修复)，缺电池 ACPI 补丁与 `SMCBatteryManager.kext` 两样 |
 | **睡眠 / 唤醒** | 未做专项验证 |
 | **外接显示** | 只验证内屏 eDP；HDMI/DP 走上游严格 SST 路径，未测 |
 | **1920×1080 模式** | `Output → Resolution` 已改为 `1920x1080`，待复测确认（见 [§1.1](#11-分辨率)） |
 | **`-v` / `debug=0x100`** | 仅调试方便，长期使用建议去掉 |
+
+### 7.1 电池（待修复）
+
+**现象**：菜单栏没有电池图标，`pmset -g batt` 只显示外接电源，
+`ioreg -rn AppleSmartBattery` 取不到对象。
+
+**缺两样东西，修 ACPI 只是其中一半**：
+
+1. **电池 ACPI 补丁**（`SSDT-BATT` 一类）——本机 ACPI 里只有
+   `SSDT-ALS0` `SSDT-EC` `SSDT-PLUG-ALT` `SSDT-PNLF` `SSDT-RTCAWAC`
+   `SSDT-USB-Reset` `SSDT-USBX` 这 7 个，**没有**任何电池相关 SSDT。
+   华为这类机器的 EC 电池字段通常是 16-bit 分高位/低位存放，
+   需要按 DSDT 里的实际布局拆字段（`B1B2` / `RBEC` 辅助方法），
+   并把 `_BST` / `_BIF`（或 `_BIX`）挂到新建的 `BAT0` 设备上。
+2. **`SMCBatteryManager.kext`** —— 本 EFI 的 `VirtualSMC.kext` 是精简运行时包
+   （`Contents/PlugIns` 为空），没有带电池插件。
+   这一环缺着，**ACPI 修得再对也不会有电池图标**，因为系统侧根本没有
+   产生 `AppleSmartBattery` 的驱动。
+
+**已启用但不解决问题的部分**：`ECEnabler.kext` 只负责读取 >8bit 的 EC 字段，
+它不生成电池设备，也无法替代上面的 `SSDT-BATT`。
+
+**下一步**：dump 本机 DSDT/EC 后确认电池设备的真实路径（`H_EC` / `EC0` / `BAT0` 命名各家不同），
+做字段拆分 + rename 补丁；同时把 `SMCBatteryManager.kext` 加进
+`Kernel → Add`（排在 `VirtualSMC` 之后）。修完复测：
+
+```bash
+pmset -g batt
+ioreg -rn AppleSmartBattery | grep -E "CycleCount|DesignCapacity|CurrentCapacity"
+```
 
 ---
 
@@ -217,3 +244,4 @@ bundle 与版权信息。SSDT 与 `config.plist` 的整理部分可视为 **CC0 
   - 文档内分辨率统一为 1920×1080，补充换三码步骤与第三方组件清单。
   - 修正 `Kernel → Add` 中 VoodooI2C / VoodooPS2Controller 的 PlugIn 数量描述。
   - 系统版本按实机订正为 macOS **26.7**（原稿写的构建号与内核版本互相对不上，已去掉）。
+  - 补充电池检测问题：ACPI 缺 `SSDT-BATT` 一类补丁，且 `VirtualSMC` 为精简包无 `SMCBatteryManager.kext`。

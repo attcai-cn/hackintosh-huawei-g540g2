@@ -36,6 +36,21 @@
 | `VoodooPS2Controller.kext` | `VoodooPS2Keyboard.kext` / `VoodooPS2Mouse.kext` / `VoodooPS2Trackpad.kext` | ✅ 启用 |
 | `VoodooPS2Controller.kext` | `VoodooInput.kext` | ❌ **禁用**（与 VoodooI2C 的那份冲突） |
 
+## 尚未加入（电池，待修复）
+
+电池检测目前不可用，缺的是两样东西，其中一样**不在**这份清单里：
+
+| 项 | 状态 | 说明 |
+| --- | --- | --- |
+| `SMCBatteryManager.kext` | ❌ 未加入 | VirtualSMC 的电池插件。本 EFI 里的 `VirtualSMC.kext` 是精简运行时包，`Contents/PlugIns` 为空，所以电池驱动链根本没接上 |
+| 电池 ACPI（`SSDT-BATT` 等） | ❌ 未加入 | EC 里的 16-bit 电池字段需要拆分 + `_BST`/`_BIF` 重建，详见主 README §7.1 |
+
+`ECEnabler.kext`（#10）已在用，但它只解决「>8bit 字段读不出来」，
+**不生成电池设备**，替代不了上面两项。
+
+补齐时 `SMCBatteryManager.kext` 要排在 `VirtualSMC.kext` 之后，
+不要单独放在 `Lilu` 之前。
+
 ## 许可证
 
 - **BSD-3-Clause**：Lilu、VirtualSMC、AppleALC、RestrictEvents、NVMeFix、VoodooPS2Controller、
