@@ -1,8 +1,8 @@
 # HUAWEI YTG / i7-1360P / Iris Xe (8086:A7A0) — macOS Tahoe 26 + eDP 内屏加速
 
-**状态：可正常启动，内屏 eDP 硬件加速已点亮（Metal 2）。音频与电池仍不可用，见 [§7](#7-已知问题)。**
+**状态：可正常启动，内屏 eDP 硬件加速已点亮（Metal 2），支持VDA硬解，无线有线网络均正常。触摸板、音频与电池仍不可用，见 [§7](#7-已知问题)。**
 
-这份 EFI 是「WhateverXe 补丁版点亮内屏」这一结果的**可复用快照**，不是通用配置——
+这份 EFI 是 华为擎云G540 Gen2-078 的**可复用快照**，不是通用配置——
 序列号、ACPI、USB 映射都是针对这台机器的。
 
 配套的补丁源码是对上游 WhateverXe 0.6.1 的 fork，改动在 `edp-panel-handoff` 分支：
@@ -235,13 +235,3 @@ ioreg -rn AppleSmartBattery | grep -E "CycleCount|DesignCapacity|CurrentCapacity
 bundle 与版权信息。SSDT 与 `config.plist` 的整理部分可视为 **CC0 / 公有领域**。
 
 ---
-
-## 9. 变更记录
-
-- **2026-10-31 整理发布**
-  - `EFI/OC/config.plist` 抹除真实 `SystemSerialNumber` / `MLB` / `SystemUUID` / `ROM`，改为占位值（原文件仅保留在本地）。
-  - `UEFI → Output → Resolution`：`1024x768` → `1920x1080`（内屏原生分辨率）。
-  - 文档内分辨率统一为 1920×1080，补充换三码步骤与第三方组件清单。
-  - 修正 `Kernel → Add` 中 VoodooI2C / VoodooPS2Controller 的 PlugIn 数量描述。
-  - 系统版本按实机订正为 macOS **26.7**（原稿写的构建号与内核版本互相对不上，已去掉）。
-  - 补充电池检测问题：ACPI 缺 `SSDT-BATT` 一类补丁，且 `VirtualSMC` 为精简包无 `SMCBatteryManager.kext`。
