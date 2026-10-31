@@ -1,0 +1,126 @@
+==================================================================
+ WhateverXe 加速链路验证   2026-10-31 17:57:23
+==================================================================
+
+--- [1] 内核已加载的 WEX / 加速器 kext ---
+   59    0 0xffffff8004461000 0x8ca000   0x8ca000   org.b00t0x.WhateverXe (0.6.1) 559744BB-B42F-3F75-A9DD-FA4DAC5262AC <56 19 9 7 6 3 2 1>
+  142    1 0xffffff7f96d27000 0x2780     0x2780     org.b00t0x.AppleIntelTGLCompat (0.6.1) BC94B9F6-2490-3C7A-9504-28FA41D3627C <19 9 7 6 3 2 1>
+  143    0 0xffffff7f96e77000 0xc8000    0xc8000    com.apple.driver.AppleIntelTGLGraphicsFramebuffer (16.0.0) B6078743-F795-3202-A55E-EA690FA40949 <142 141 137 127 48 19 17 9 8 7 6 3 1>
+  162    0 0xffffff7f96d2b000 0xc7ff9    0xc7ff9    com.apple.driver.AppleIntelTGLGraphics (16.0.0) BA3AA1C0-FE6B-33B3-9D85-73F848394E3D <141 127 100 19 9 8 7 6 3 1>
+
+--- [2] 设备准入 ---
+"WhateverXeDeviceSelection" = <010000008680a0a7040000008680a0a7070000000d0000000600000001000000>
+  N97Admission               = Yes
+  N97NativeStartAllowed      = Yes
+  N97NativePreflight         = Yes
+  N97NativeKernelReady       = Yes
+  N97GTTopologyReady         = Yes
+
+--- [3] DVMT 修正 (本次修复的核心) ---
+  header                 = 1 (0x1)
+  GGC                    = 65217 (0xfec1)
+  nativeBytes            = 4227858432 (0xfc000000)
+  xelpMemory.bytes       = 62914560 (0x3c00000)
+  needCalc               = 1 (0x1)
+  DVMTCalcFix.enabled    = 1 (0x1)
+  DVMTCalcFix.isApplied  = 1 (0x1)
+  calcReady              = 1 (0x1)
+
+  [OK] DVMT 修正已应用 -> 帧缓冲后端可安装
+
+--- [4] 帧缓冲后端安装 ---
+  WEXFramebufferInstallation = (1, 1, 1, 1)  (routed, commonReady, backendInstalled)
+  [OK] framebufferBackendInstalled = 1
+  N97FramebufferBackendReady       = Yes
+  N97FBGTTHooksReady               = Yes
+  N97FBMemoryHooksReady            = Yes
+  N97FBPowerReferenceHooksReady    = Yes
+  N97FBCommonABIReady              = Yes
+  N97FBOutputHooksReady            = Yes
+  N97FBTopologyHooksReady          = Yes
+  N97FBClockReadoutHooksReady      = Yes
+  N97HostRPSReady                  = Yes
+
+--- [5] 加速器 register 前置条件 ---
+  header           = 1 (0x1)
+  ready            = 0 (0x0)
+  controllerMatch  = 1 (0x1)
+  sharedCallback   = 18446743522195626402 (0xffffff7f973559a2)
+  classSize        = 7296 (0x1c80)
+  providerMatch    = 0 (0x0)
+  ctrl+0xC0        = 0 (0x0)
+  ctrl+0xDF8       = 64573440 (0x3d95000)
+  gttInitialized   = 1 (0x1)
+  gttFaulted       = 0 (0x0)
+  memFaulted       = 0 (0x0)
+
+  [FAIL] provider 不匹配
+  N97SharedRegisterPrerequisites = No
+
+--- [6] 加速器启动观测 (TGLAccel stage 序列) ---
+  seq=1   stage=1(probe       ) done=0 result=0x1 detail=0xa7a08086
+  seq=2   stage=1(probe       ) done=1 result=0xffffff91bf376000 detail=0xa7a08086
+  seq=3   stage=2(start       ) done=0 result=0x0 detail=0xffffff91bf105180
+  seq=4   stage=3(failure     ) done=0 result=0x0 detail=0xffffff7f9734eefd
+  seq=5   stage=3(failure     ) done=1 result=0x0 detail=0x0
+  seq=6   stage=4(register    ) done=0 result=0x0 detail=0x0
+  seq=7   stage=3(failure     ) done=0 result=0x200 detail=0xffffff7f9734f2a4
+  seq=8   stage=3(failure     ) done=1 result=0x200 detail=0x0
+  seq=9   stage=2(start       ) done=1 result=0x0 detail=0xffffff91bf105180
+
+  期望: stage1 done=1(返回非空) -> stage2 done=1(result=1) -> stage4 done=1(result=1)
+
+--- [6b] Display13 boot handoff (eDP 面板采纳) ---
+  N97FramebufferOriginalStart = Yes  (donor 自身 start 返回值)
+  N97FramebufferStartAccepted  = No  (WEX 验收结果)
+
+  N97FBHandoffGate = <未发布>  (该 kext 未包含 eDP handoff 补丁)
+
+  N97FBPower             seq=1 op=0 STATUS=0(Complete) errors=0 begun=1 faulted=0 bootPG=1 bootDDI=1 bootPath=0x0
+  N97FBBootHandoff       seq=2 op=7 STATUS=1(NotReady) errors=1 begun=1 faulted=1 bootPG=1 bootDDI=1 bootPath=0x0
+  N97FBFirstResourceFault  line=8167 (源码 8156 = 失败快照行)
+  N97NativeBootSource       bootDDI=0 protocol=2(2=EDP) linearPlan=1 tc=0
+  N97NativeBootConnector    displayRequested=1 hasWiring=0 boardValid=1 hdmi=0x12 bootDDI=0
+
+--- [7] IOKit 节点 ---
+  AppleIntelFramebufferController    不存在 <-- 无加速
+  IntelFBClientControl               不存在 <-- 无加速
+  IntelAccelerator                   不存在 <-- 无加速
+
+--- [8] 显示适配器 ---
+Graphics/Displays:
+
+    Intel Iris Xe Graphics:
+
+      Chipset Model: Intel Iris Xe Graphics
+      Type: GPU
+      Bus: Built-In
+      VRAM (Total): 3 MB
+      VRAM (Dynamic, Max): 
+      Vendor: Intel
+      Device ID: 0xa7a0
+      Revision ID: 0x0004
+      Kernel Extension Info: No Kext Loaded
+      Displays:
+        Display:
+          Resolution: 1024 x 768 (XGA - eXtended Graphics Array)
+          UI Looks like: 1024 x 768
+          Framebuffer Depth: 24-Bit Color (ARGB8888)
+          Main Display: Yes
+          Mirror: Off
+          Online: Yes
+
+
+--- [9] Metal 能力 ---
+  (无 Metal 支持信息)
+
+==================================================================
+ 判定要点：
+   1) [3] calcReady=1 且 DVMTCalcFix.isApplied=1
+   2) [4] framebufferBackendInstalled=1 且 N97FBGTTHooksReady=Yes
+   3) [6b] N97FBBootHandoff STATUS=0(Complete) 且 bootPath!=0
+            N97FramebufferStartAccepted=Yes
+   4) [5] N97SharedRegisterPrerequisites=Yes
+   5) [7] IntelAccelerator 节点存在
+   6) [8] VRAM 应为 60MB+ 且分辨率不再是 1024x768
+==================================================================

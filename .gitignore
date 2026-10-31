@@ -1,0 +1,19 @@
+# macOS / Windows 杂项
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+desktop.ini
+
+# 备份与临时产物
+_backup/
+_*.kext/
+*.bak
+*.zip
+_private/
+
+# 带真实三码的配置绝不入库
+config.plist.local
+config-*.real.plist

@@ -1,0 +1,171 @@
+==================================================================
+ WhateverXe 加速链路验证   2026-10-31 18:23:58
+==================================================================
+
+--- [1] 内核已加载的 WEX / 加速器 kext ---
+   59    0 0xffffff8004461000 0x8c8000   0x8c8000   org.b00t0x.WhateverXe (0.6.1) 61343882-8606-3468-A890-0271429D93AE <56 19 9 7 6 3 2 1>
+  141    1 0xffffff7f96d27000 0x2780     0x2780     org.b00t0x.AppleIntelTGLCompat (0.6.1) BC94B9F6-2490-3C7A-9504-28FA41D3627C <19 9 7 6 3 2 1>
+  142    0 0xffffff7f96e77000 0xc8000    0xc8000    com.apple.driver.AppleIntelTGLGraphicsFramebuffer (16.0.0) B6078743-F795-3202-A55E-EA690FA40949 <141 140 133 124 48 19 17 9 8 7 6 3 1>
+  161    0 0xffffff7f96d2b000 0xc7ff9    0xc7ff9    com.apple.driver.AppleIntelTGLGraphics (16.0.0) BA3AA1C0-FE6B-33B3-9D85-73F848394E3D <140 124 99 19 9 8 7 6 3 1>
+
+--- [2] 设备准入 ---
+"WhateverXeDeviceSelection" = <010000008680a0a7040000008680a0a7070000000d0000000600000001000000>
+  N97Admission               = Yes
+  N97NativeStartAllowed      = Yes
+  N97NativePreflight         = Yes
+  N97NativeKernelReady       = Yes
+  N97GTTopologyReady         = Yes
+
+--- [3] DVMT 修正 (本次修复的核心) ---
+  header                 = 1 (0x1)
+  GGC                    = 65217 (0xfec1)
+  nativeBytes            = 4227858432 (0xfc000000)
+  xelpMemory.bytes       = 62914560 (0x3c00000)
+  needCalc               = 1 (0x1)
+  DVMTCalcFix.enabled    = 1 (0x1)
+  DVMTCalcFix.isApplied  = 1 (0x1)
+  calcReady              = 1 (0x1)
+
+  [OK] DVMT 修正已应用 -> 帧缓冲后端可安装
+
+--- [4] 帧缓冲后端安装 ---
+  WEXFramebufferInstallation = (1, 1, 1, 1)  (routed, commonReady, backendInstalled)
+  [OK] framebufferBackendInstalled = 1
+  N97FramebufferBackendReady       = Yes
+  N97FBGTTHooksReady               = Yes
+  N97FBMemoryHooksReady            = Yes
+  N97FBPowerReferenceHooksReady    = Yes
+  N97FBCommonABIReady              = Yes
+  N97FBOutputHooksReady            = Yes
+  N97FBTopologyHooksReady          = Yes
+  N97FBClockReadoutHooksReady      = Yes
+  N97HostRPSReady                  = Yes
+
+--- [5] 加速器 register 前置条件 ---
+  header           = 1 (0x1)
+  ready            = 1 (0x1)
+  controllerMatch  = 1 (0x1)
+  sharedCallback   = 18446743522266929570 (0xffffff7f9b7559a2)
+  classSize        = 7296 (0x1c80)
+  providerMatch    = 1 (0x1)
+  ctrl+0xC0        = 0 (0x0)
+  ctrl+0xDF8       = 64573440 (0x3d95000)
+  gttInitialized   = 1 (0x1)
+  gttFaulted       = 0 (0x0)
+  memFaulted       = 0 (0x0)
+
+  [OK] 全部前置通过
+  N97SharedRegisterPrerequisites = Yes
+
+--- [6] 加速器启动观测 (TGLAccel stage 序列) ---
+  seq=1   stage=1(probe       ) done=0 result=0x1 detail=0xa7a08086
+  seq=2   stage=1(probe       ) done=1 result=0xffffffa16e13d000 detail=0xa7a08086
+  seq=3   stage=2(start       ) done=0 result=0x0 detail=0xffffffa16e299700
+  seq=4   stage=3(failure     ) done=0 result=0x0 detail=0xffffff7f9b74eefd
+  seq=5   stage=3(failure     ) done=1 result=0x0 detail=0x0
+  seq=6   stage=4(register    ) done=0 result=0x0 detail=0x0
+  seq=7   stage=4(register    ) done=1 result=0x1 detail=0x0
+  seq=8   stage=8(?           ) done=0 result=0x0 detail=0x0
+  seq=9   stage=8(?           ) done=1 result=0x6000000008 detail=0x0
+  seq=10  stage=9(?           ) done=0 result=0x0 detail=0x0
+  seq=11  stage=9(?           ) done=1 result=0x1 detail=0xffffffa16f357800
+  seq=12  stage=5(statusMemory) done=0 result=0x0 detail=0x0
+  seq=13  stage=5(statusMemory) done=1 result=0x1 detail=0x0
+  seq=14  stage=10(?           ) done=1 result=0x1 detail=0x6000000008
+  seq=15  stage=6(?           ) done=0 result=0x0 detail=0x0
+  seq=16  stage=6(?           ) done=1 result=0x1 detail=0x0
+  seq=17  stage=3(failure     ) done=0 result=0x1 detail=0xffffff7f9b74f734
+  seq=18  stage=3(failure     ) done=1 result=0x1 detail=0x0
+  seq=19  stage=2(start       ) done=1 result=0x1 detail=0xffffffa16e299700
+  seq=20  stage=10(?           ) done=1 result=0x1 detail=0x6000000008
+  seq=21  stage=6(?           ) done=0 result=0x0 detail=0x0
+  seq=22  stage=6(?           ) done=1 result=0x1 detail=0x0
+  seq=23  stage=10(?           ) done=1 result=0x1 detail=0x6000000008
+  seq=24  stage=6(?           ) done=0 result=0x0 detail=0x0
+  seq=25  stage=6(?           ) done=1 result=0x1 detail=0x0
+  seq=26  stage=10(?           ) done=1 result=0x1 detail=0x6000000008
+  seq=27  stage=6(?           ) done=0 result=0x0 detail=0x0
+  seq=28  stage=6(?           ) done=1 result=0x1 detail=0x0
+  seq=29  stage=10(?           ) done=1 result=0x1 detail=0x6000000008
+  seq=30  stage=6(?           ) done=0 result=0x0 detail=0x0
+  seq=31  stage=6(?           ) done=1 result=0x1 detail=0x0
+  seq=32  stage=10(?           ) done=1 result=0x1 detail=0x6000000008
+  seq=33  stage=6(?           ) done=0 result=0x0 detail=0x0
+  seq=34  stage=6(?           ) done=1 result=0x1 detail=0x0
+  seq=35  stage=10(?           ) done=1 result=0x1 detail=0x6000000008
+  seq=36  stage=6(?           ) done=0 result=0x0 detail=0x0
+  seq=37  stage=6(?           ) done=1 result=0x1 detail=0x0
+  seq=38  stage=10(?           ) done=1 result=0x1 detail=0x6000000008
+  seq=39  stage=6(?           ) done=0 result=0x0 detail=0x0
+  seq=40  stage=6(?           ) done=1 result=0x1 detail=0x0
+
+  期望: stage1 done=1(返回非空) -> stage2 done=1(result=1) -> stage4 done=1(result=1)
+
+--- [6b] Display13 boot handoff (eDP 面板采纳) ---
+  N97FramebufferOriginalStart = Yes  (donor 自身 start 返回值)
+  N97FramebufferStartAccepted  = Yes  (WEX 验收结果)
+
+  ver                                          = 1
+  bootDDI                                      = 0
+  dpLink                                       = 1
+  internalPanel                                = 1
+  sstPortAccepted                              = 0
+  sstRejectReason                              = 19
+  portSize>=0x580                              = 1
+  identity(port+0x120==config[0]==ddi)         = 1
+  owner(port+0x578==access)                    = 1
+  linkClear(port+0x117==0)                     = 1
+  health(clock/mem/panel)                      = 1
+  portMode(port+0x550)                         = 0
+
+  >> SST 严格路径被拒: port+0x550 模式不符
+  >> eDP 放宽路径: 放行 (size=True identity=True owner=True link=True health=True)
+
+  N97FBPower             seq=278 op=6 STATUS=0(Complete) errors=0 begun=1 faulted=0 bootPG=0 bootDDI=0 bootPath=0xffffffab076a2000
+  N97FBBootHandoff       seq=2 op=7 STATUS=0(Complete) errors=0 begun=1 faulted=0 bootPG=0 bootDDI=0 bootPath=0xffffffab076a2000
+  N97NativeBootSource       bootDDI=0 protocol=2(2=EDP) linearPlan=1 tc=0
+  N97NativeBootConnector    displayRequested=1 hasWiring=0 boardValid=1 hdmi=0x12 bootDDI=0
+
+--- [7] IOKit 节点 ---
+  AppleIntelFramebufferController    存在 (1)
+  IntelFBClientControl               存在 (1)
+  IntelAccelerator                   存在 (1)
+
+--- [8] 显示适配器 ---
+Graphics/Displays:
+
+    Intel Iris Xe Graphics:
+
+      Chipset Model: Intel Iris Xe Graphics
+      Type: GPU
+      Bus: Built-In
+      VRAM (Dynamic, Max): 1536 MB
+      Vendor: Intel
+      Device ID: 0xa7a0
+      Revision ID: 0x0004
+      Metal Support: Metal 2
+      Displays:
+        Display:
+          Resolution: 1920 x 1080
+          UI Looks like: 1920 x 1080 @ 60.00Hz
+          Framebuffer Depth: 24-Bit Color (ARGB8888)
+          Main Display: Yes
+          Mirror: Off
+          Online: Yes
+          Automatically Adjust Brightness: No
+          Connection Type: Internal
+
+
+--- [9] Metal 能力 ---
+      Metal Support: Metal 2
+
+==================================================================
+ 判定要点：
+   1) [3] calcReady=1 且 DVMTCalcFix.isApplied=1
+   2) [4] framebufferBackendInstalled=1 且 N97FBGTTHooksReady=Yes
+   3) [6b] N97FBBootHandoff STATUS=0(Complete) 且 bootPath!=0
+            N97FramebufferStartAccepted=Yes
+   4) [5] N97SharedRegisterPrerequisites=Yes
+   5) [7] IntelAccelerator 节点存在
+   6) [8] VRAM 应为 60MB+ 且分辨率不再是 1024x768
+==================================================================

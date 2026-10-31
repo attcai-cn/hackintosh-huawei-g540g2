@@ -1,0 +1,12 @@
+* text=auto eol=lf
+
+# 二进制：绝不能让 git 碰换行符
+*.efi   binary
+*.aml   binary
+*.icns  binary
+*.l2x   binary
+*.lbl   binary
+*.bin   binary
+*.png   binary
+# kext / 插件的可执行文件（含 PlugIns 内嵌层）
+**/Contents/MacOS/*   binary

@@ -1,0 +1,35 @@
+# EFI-Huawei-YTG-i7-1360P-Tahoe26-eDP-OK — 关键文件校验和
+# 生成方式:  sha256sum $(find EFI -name '*.efi' -o -name config.plist -o -path '*Contents/MacOS/*') | sort -k2
+
+7b26e33bfd84fbc5025fcb16994f7eda3224d15edcfc004d71c8761e08a766fd *EFI/BOOT/BOOTx64.efi
+a55b5fff36578864ba6792c4c6369c71f6f35b61dd5a853ddf8583cd36c31d8f *EFI/OC/Drivers/HfsPlus.efi
+cf2df818f7510ca1be321f1ff6481fcbe246c92b16a905ffc5ff654158e05b66 *EFI/OC/Drivers/OpenRuntime.efi
+21d85c60f9fbfb9778694fe54234b2ecbb2bbdd6f8c5d5cff9084494fd05b164 *EFI/OC/Drivers/ResetNvramEntry.efi
+11ba0b763d765fb82187214d1fa2ee5a9330f851461c12e34d532b7b91097875 *EFI/OC/OpenCore.efi
+85fb441a09b6eca8495b3a5340620067a429d43b6fbf3e499efaa94aaeefa1b0 *EFI/OC/config.plist
+
+# Kext 可执行文件
+2d36aeca1740b258e6bb0b66844b5bfb59a0edb7cdd9ef78206689e5d223d8dc *EFI/OC/Kexts/AMFIPass.kext/Contents/MacOS/AMFIPass
+259bac9432bffa8bf9c73411d8ac8f4a854552375e9f60ba0870ea3151ed973c *EFI/OC/Kexts/AirportItlwm.kext/Contents/MacOS/AirportItlwm
+050a86856387f24a51dbb32ef432ad17d29c1c23df9b9474a768552fb8a953b6 *EFI/OC/Kexts/AppleALC.kext/Contents/MacOS/AppleALC
+e11fc0299c230e716fbbb9d2eb6df54c1494338a9201f903bab22c410ff57f0b *EFI/OC/Kexts/BlueToolFixup.kext/Contents/MacOS/BlueToolFixup
+0e36496ff627db53002ad04bd8e1e910909e083e587609fb9b472d5f2d7bde07 *EFI/OC/Kexts/CpuTopologyRebuild.kext/Contents/MacOS/CpuTopologyRebuild
+af2a3a6790a37f5ba71fbeaebc4e4e0d4f44cbbd6966089f0a8f7a454175213a *EFI/OC/Kexts/ECEnabler.kext/Contents/MacOS/ECEnabler
+f3e2547873c7505d3a83e8d60452f9f09dc0858495934201ff5ade52aee174b3 *EFI/OC/Kexts/IntelBTPatcher.kext/Contents/MacOS/IntelBTPatcher
+2da7a9d1213fbb0ba1a6b11396ea416fd06ba4597dfca569aa1c6f53ada25617 *EFI/OC/Kexts/IntelBluetoothFirmware.kext/Contents/MacOS/IntelBluetoothFirmware
+e3f00df5aca98c70363489292514f088ae3b667417c9c5afdd33799ff09390bd *EFI/OC/Kexts/Lilu.kext/Contents/MacOS/Lilu
+d32c743220011f162ac104cdf73b1bce71cca77459a54553e461b89b9837a4d6 *EFI/OC/Kexts/NVMeFix.kext/Contents/MacOS/NVMeFix
+8a244c696234c4ae1dec7c318664c57b685f9d2501e8bb6649ec805b21e9fa3a *EFI/OC/Kexts/RestrictEvents.kext/Contents/MacOS/RestrictEvents
+c5c8dc205a079ee3f90b7875fb5ff622e4f15d32f29cf519123dab2822c422b7 *EFI/OC/Kexts/USBToolBox.kext/Contents/MacOS/USBToolBox
+bf91e9542b86c20acaf210353a93742291c49328e2d14b03fa0fa4fc52b3b5ce *EFI/OC/Kexts/VirtualSMC.kext/Contents/MacOS/VirtualSMC
+dbb7865eec4eeb0ea4e303789407c8cbbbfa3a944780191bd9943279c64ebe9f *EFI/OC/Kexts/VoodooI2C.kext/Contents/MacOS/VoodooI2C
+8d51e79c7f49375e520ae017c69f7c4eb0d7420ff069bfc7c0e94bdee405461a *EFI/OC/Kexts/VoodooI2C.kext/Contents/PlugIns/VoodooGPIO.kext/Contents/MacOS/VoodooGPIO
+0dda79836a5ec2b1b60cacb27c2a7e022993b9983a3689f6b0826505c51c5e1e *EFI/OC/Kexts/VoodooI2C.kext/Contents/PlugIns/VoodooI2CServices.kext/Contents/MacOS/VoodooI2CServices
+b20f06a6f344ef303dde4b7026a41fc6c1d220ebb5b7da3c3d9ac1d2bdadda9e *EFI/OC/Kexts/VoodooI2C.kext/Contents/PlugIns/VoodooInput.kext/Contents/MacOS/VoodooInput
+1ba930b05d5c786b97353a63767fab090125d8d3e665443db4e07e46ab8b2e53 *EFI/OC/Kexts/VoodooI2CHID.kext/Contents/MacOS/VoodooI2CHID
+be6f3aa9dc88954462e422df78d8d7d129cb91b8fd03c4018ef04cc9f472e8f0 *EFI/OC/Kexts/VoodooPS2Controller.kext/Contents/MacOS/VoodooPS2Controller
+960a2b41616ad1a62fa6157e6a99c3d4d20e896b20dd7271ce2c6839cf725e31 *EFI/OC/Kexts/VoodooPS2Controller.kext/Contents/PlugIns/VoodooInput.kext/Contents/MacOS/VoodooInput
+a1e4903278b2028da9fea8feeb911026fb029ed8164d947bd7481245ae86193b *EFI/OC/Kexts/VoodooPS2Controller.kext/Contents/PlugIns/VoodooPS2Keyboard.kext/Contents/MacOS/VoodooPS2Keyboard
+075be10067839c38366da4f8864a87506e0c5d0305f98e540cd30e6da9adacab *EFI/OC/Kexts/VoodooPS2Controller.kext/Contents/PlugIns/VoodooPS2Mouse.kext/Contents/MacOS/VoodooPS2Mouse
+e42cd2f68ee472829051b1c1f2b503c6db33c006ee4035e5698d104fe3c20049 *EFI/OC/Kexts/VoodooPS2Controller.kext/Contents/PlugIns/VoodooPS2Trackpad.kext/Contents/MacOS/VoodooPS2Trackpad
+ceb8bc2f7e4245ec75d51cbd920ab21597f1c0266a228270c12a9ee5047effd6 *EFI/OC/Kexts/WhateverXe.kext/Contents/MacOS/WhateverXe
