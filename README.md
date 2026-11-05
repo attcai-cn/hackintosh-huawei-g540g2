@@ -2,6 +2,10 @@
 
 **状态：可正常启动，内屏 eDP 硬件加速已点亮（Metal 2），支持VDA硬解，无线有线网络均正常。触摸板、音频与电池仍不可用，见 [§7](#7-已知问题)。**
 
+![Screenshot](https://github.com/attcai-cn/hackintosh-huawei-g540g2/blob/main/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE_5-11-2026_213017_browser.geekbench.com.jpeg)
+![Screenshot](https://github.com/attcai-cn/hackintosh-huawei-g540g2/blob/main/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE_5-11-2026_213043_browser.geekbench.com.jpeg)
+
+
 这份 EFI 是 华为擎云G540 Gen2-078 的**可复用快照**，不是通用配置——
 序列号、ACPI、USB 映射都是针对这台机器的。
 
